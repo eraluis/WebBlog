@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	>
+<body>
+<div>
+<h:form>
+	<h:dataTable value="#{user.users}" var="row" border="3">
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Id"/>
+	     </f:facet>
+	     <h:outputText value="#{row.id}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Nombre"/>
+	     </f:facet>
+	     <h:outputText value="#{row.name}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Usuario"/>
+	     </f:facet>
+	    <h:outputText value="#{row.login}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Contraseña"/>
+	     </f:facet>
+	    <h:outputText value="#{row.password}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Role"/>
+	     </f:facet>
+	    <h:outputText value="#{row.role}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Fch. Nacimiento"/>
+	     </f:facet>
+	    <h:outputText value="#{row.birthday}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Pais"/>
+	     </f:facet>
+	    <h:outputText value="#{row.country}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Departament"/>
+	     </f:facet>
+	    <h:outputText value="#{row.department}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Ciudad"/>
+	     </f:facet>
+	    <h:outputText value="#{row.city}"/>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Actualizar"/>
+	     </f:facet>
+	    <h:commandLink value="Actualizar" action="#{user.darUser}" immediate="true">
+	        <f:param name="iduser" value="#{row.id}" />
+	    </h:commandLink>
+	</h:column>
+	<h:column>
+	     <f:facet name="header">
+	          <h:outputText value="Eliminar"/>
+	     </f:facet>
+	    <h:commandLink value="Eliminar" action="#{listusers.deleteUser}" immediate="true">
+	        <f:param name="elminar" value="#{row.id}" />
+	    </h:commandLink>
+	</h:column>
+	</h:dataTable>
+</h:form>
+</div>
+</body>
+</html>
+

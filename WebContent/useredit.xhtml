@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	>
+<body>
+<div>
+<h:form>
+	<h:panelGrid columns="2" border="3"> 
+	<h:outputLabel value="Id" ></h:outputLabel>
+	<h:inputText value="#{user.id}" disabled="true"></h:inputText>
+	<h:outputLabel value="Name"></h:outputLabel>
+	<h:inputText value="#{user.name}"></h:inputText>
+	<h:outputLabel value="Login"></h:outputLabel>
+	<h:inputText value="#{user.login}"></h:inputText>
+	<h:outputLabel value="Password"></h:outputLabel>
+	<h:inputText value="#{user.password}"></h:inputText>
+	<h:outputLabel value="Role"></h:outputLabel>
+	<h:inputText value="#{user.role}"></h:inputText>
+	<h:outputLabel value="Birthday"></h:outputLabel>
+	<h:inputText value="#{user.birthday}"></h:inputText>
+	<h:outputLabel value="Conutry"></h:outputLabel>
+	<h:inputText value="#{user.country}"></h:inputText>
+	<h:outputLabel value="Department"></h:outputLabel>
+	<h:inputText value="#{user.department}"></h:inputText>
+	<h:outputLabel value="City"></h:outputLabel>
+	<h:inputText value="#{user.city}"></h:inputText>	
+	</h:panelGrid>	
+		<br />
+	<h:panelGroup>
+	<h:commandButton value="Crear" />
+	<h:commandButton value="Acutalizar" />
+	</h:panelGroup>
+
+</h:form>
+</div>
+</body>
+</html>
+
