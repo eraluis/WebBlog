@@ -76,7 +76,7 @@ public class UserDAO {
 			try {
 				cnt = ds.getConnection();
 
-	            String query = "SELECT * FROM userbean WHERE id="+idUser;
+	            String query = "SELECT * FROM user WHERE id="+idUser;
 	            System.out.println("[UserDAO.darUser()] query:"+query);
 	            PreparedStatement statement = cnt.prepareStatement( query );
 	
@@ -96,7 +96,7 @@ public class UserDAO {
 		            u.setCity(resultado.getLong( "city_id" ));
 	                
 	            }
-	            // Cierra el statement antes de terminar
+
 	            statement.close( );
 	            cnt.close();
 			} catch (SQLException e) {
@@ -115,7 +115,6 @@ public class UserDAO {
 			cnt = ds.getConnection();
 	
 	        String query = "SELECT * FROM user";
-	        System.out.println("[UserDAO.darUsers() query"+ query);
 	        PreparedStatement statement = cnt.prepareStatement( query );
 	
 	        ResultSet resultado = statement.executeQuery( );

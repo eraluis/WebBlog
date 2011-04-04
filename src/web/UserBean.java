@@ -1,6 +1,5 @@
 package web;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,53 +10,32 @@ import javax.faces.context.FacesContext;
 
 import persistence.User;
 import persistence.UserDAO;
-import util.Functions;
+
 
 @ManagedBean (name="user")
 @SessionScoped
 public class UserBean {
 	
-	private boolean signed;
 	private User user;
 	private ArrayList<User> users;
     private UserDAO userDao;
 	
 	public UserBean(){
-		setSigned(false);
 		user = new User();
 		userDao = UserDAO.darInstancia();	
 		System.out.println("Inicio UserBean... "+ user);
-	}
-	
-	public String signin(){
-		setSigned(false);
-		System.out.println(getLogin());
-        try {
-        	User u = userDao.signin(getLogin(),getPassword());
-        	if(u != null){
-        		setSigned(true);
-        		setUser(u);
-        	}
-            
-            } catch (SQLException e) {
-            	Functions.crearMensaje("Error al tratar de conectaqrse a la BD");
-            	System.out.println("[UserBean()] SQLException"+e.getMessage());	
-			}
-               
-		return null;
-	}
-	
-	public String signout(){
-		user = new User();
-		setSigned(false);
-		System.out.println("signout someone!!!");
-		return null;
 	}
 	
 	public String darUser(){
 		System.out.println("darUser");
         FacesContext context = FacesContext.getCurrentInstance();
         long idUser = new Long(context.getExternalContext().getRequestParameterMap().get("iduser"));
+       	User u = userDao.darUser(idUser);
+       	System.out.println(u);
+       	if(u!=null){
+        	setUser(u);
+       	}
+       	
         System.out.println(idUser);
         
         return null;
@@ -66,14 +44,6 @@ public class UserBean {
 	public ArrayList<User> getUsers(){
 		ArrayList<User> users = userDao.darUsers();
 		return users;
-	}
-	
-	
-	/**
-	 * @param signed the signed to set
-	 */
-	public void setSigned(boolean signed) {
-		this.signed = signed;
 	}
 
 	/**
@@ -104,12 +74,6 @@ public class UserBean {
 		this.userDao = userDao;
 	}
 
-	/**
-	 * @return the signed
-	 */
-	public boolean isSigned() {
-		return signed;
-	}
 	
 	/**
 	 * @return the id

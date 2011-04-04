@@ -5,24 +5,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 >
+<f:loadBundle var="msg" basename="./languages/messages"></f:loadBundle>
 <body> 
+<h:form>
 <div >
-        <h:form>
-       	<h:panelGrid columns="2" width="100%" >
-       		<f:facet name="header" >Ingresar a Web Blog</f:facet>
-            <h:outputLabel style="right"  value="#{msg.login}" />
-            <h:inputText value="#{user.login}" class="right" />
-            <h:outputLabel value="#{msg.password}" />
-            <h:inputSecret value="#{user.password}" class="right"/>
-        </h:panelGrid>
-        <h:panelGroup class="right" > 
-        <h:commandLink value="#{msg.signin}" action="#{user.signin}"></h:commandLink>
-        <h:outputLabel value=" | " />
-        <h:commandLink value="#{msg.register}" action="#{user.signout}"></h:commandLink>
-        </h:panelGroup>
-        </h:form>
-        
+	<h:panelGrid columns="2" width="100%" >
+		<f:facet name="header" >#{msg.enter}</f:facet>
+		<h:outputLabel value="#{msg.login}" />
+		<h:inputText value="#{sign.login}" class="right" />
+		<h:outputLabel value="#{msg.password}" />
+		<h:inputSecret value="#{sign.password}" class="right"/>
+	</h:panelGrid>
+	<h:panelGroup class="right" > 
+		<h:commandLink value="#{msg.signin}" action="#{sign.signin}"></h:commandLink>
+		<h:outputLabel value=" | " />
+		<h:commandLink value="#{msg.register}" action="#{sign.signout}"></h:commandLink>
+	</h:panelGroup>
 </div>
-<h:messages></h:messages>
+<h:messages/>
+</h:form>
 </body>
 </html>
