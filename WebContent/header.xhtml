@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"    
+>
+<body>
+<f:loadBundle var="msg" basename="./languages/messages"></f:loadBundle>
+<div>
+<h:form>
+<h:panelGrid columns="2" width="100%" >
+<h:outputLabel style="font-size:30px;font-weight:bold;" value="#{msg.title}" />
+<h:panelGroup class="right">
+	<h:outputLabel value="#{msg.wellcome}" rendered="#{user.signed == 'false'}" />
+	<h:outputLabel  value="#{user.name} | " rendered="#{user.signed == 'true'}" />
+	<h:commandLink value="#{msg.signout}" action="#{user.signout}" rendered="#{user.signed == 'true'}"></h:commandLink>
+</h:panelGroup>
+</h:panelGrid>
+</h:form>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"      
+      >
+<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+  <title><ui:insert name="title">Web Blog JSF</ui:insert></title>
+</h:head>
+
+<body>
+<f:loadBundle var="msg" basename="./languages/messages"></f:loadBundle>
+<div id="top">
+    <ui:insert name="top">
+    	<ui:include src="header.xhtml"/>
+    </ui:insert>
+</div>
+
+
+<div id="left">
+<!-- <ui:insert name="right">left</ui:insert>  -->
+     <ui:include  src="login.xhtml"/> 
+</div>
+<div>
+   <!--
+   <div id="right">
+   <ui:insert name="right">Right</ui:insert> 
+        <ui:include  src="login.xhtml"/> 
+    </div>
+    -->
+    <div id="contentd" class="left_content">
+<!--<ui:insert name="content">Right</ui:insert>   -->
+	<ui:include  src="content.xhtml"/>
+    </div>
+</div>
+
+<div id="bottom">
+  <ui:insert name="bottomd">
+		<ui:include src="footer.xhtml"/>
+  </ui:insert>
+</div>
+</body>
+</html>
