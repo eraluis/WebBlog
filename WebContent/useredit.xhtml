@@ -21,7 +21,9 @@
 	<h:outputLabel value="Role"></h:outputLabel>
 	<h:inputText value="#{user.role}"></h:inputText>
 	<h:outputLabel value="Birthday"></h:outputLabel>
-	<h:inputText value="#{user.birthday}"></h:inputText>
+	<h:inputText value="#{user.birthday}">
+		<f:converter converterId="javax.faces.DateTime" />
+	</h:inputText>
 	<h:outputLabel value="Conutry"></h:outputLabel>
 	<h:inputText value="#{user.country}"></h:inputText>
 	<h:outputLabel value="Department"></h:outputLabel>
@@ -31,8 +33,9 @@
 	</h:panelGrid>	
 		<br />
 	<h:panelGroup>
-	<h:commandButton value="Crear" />
-	<h:commandButton value="Acutalizar" />
+	<h:commandButton value="Cancel" action="#{user.initUser}"/>
+	<h:commandButton value="Create"  rendered="#{user.id == '0'}" action="#{user.createUser}"/>
+	<h:commandButton value="Update"  rendered="#{user.id != '0'}" action="#{user.updateUser}"/>
 	</h:panelGroup>
 
 </h:form>

@@ -18,19 +18,19 @@
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Nombre"/>
+	          <h:outputText value="Name"/>
 	     </f:facet>
 	     <h:outputText value="#{row.name}"/>
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Usuario"/>
+	          <h:outputText value="User"/>
 	     </f:facet>
 	    <h:outputText value="#{row.login}"/>
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Contraseña"/>
+	          <h:outputText value="Password"/>
 	     </f:facet>
 	    <h:outputText value="#{row.password}"/>
 	</h:column>
@@ -42,13 +42,13 @@
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Fch. Nacimiento"/>
+	          <h:outputText value="Birthday"/>
 	     </f:facet>
 	    <h:outputText value="#{row.birthday}"/>
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Pais"/>
+	          <h:outputText value="Country"/>
 	     </f:facet>
 	    <h:outputText value="#{row.country}"/>
 	</h:column>
@@ -60,24 +60,24 @@
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Ciudad"/>
+	          <h:outputText value="City"/>
 	     </f:facet>
 	    <h:outputText value="#{row.city}"/>
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Actualizar"/>
+	          <h:outputText value="Update"/>
 	     </f:facet>
-	    <h:commandLink value="Actualizar" action="#{user.darUser}" immediate="true">
+	    <h:commandLink value="Update" action="#{user.obtainUser}" immediate="true">
 	        <f:param name="iduser" value="#{row.id}" />
 	    </h:commandLink>
 	</h:column>
 	<h:column>
 	     <f:facet name="header">
-	          <h:outputText value="Eliminar"/>
+	          <h:outputText value="Delete"/>
 	     </f:facet>
-	    <h:commandLink value="Eliminar" action="#{listusers.deleteUser}" immediate="true">
-	        <f:param name="elminar" value="#{row.id}" />
+	    <h:commandLink value="Delete" action="#{user.deleteUser}" immediate="true">
+	        <f:param name="iduser" value="#{row.id}" />
 	    </h:commandLink>
 	</h:column>
 	</h:dataTable>

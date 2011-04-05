@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-
 import persistence.User;
 import persistence.UserDAO;
 
@@ -17,33 +16,74 @@ import persistence.UserDAO;
 public class UserBean {
 	
 	private User user;
+	@SuppressWarnings("unused")
 	private ArrayList<User> users;
     private UserDAO userDao;
 	
 	public UserBean(){
-		user = new User();
-		userDao = UserDAO.darInstancia();	
-		System.out.println("Inicio UserBean... "+ user);
+		initUser();
+		System.out.println("Inicio UserBean...");
 	}
 	
-	public String darUser(){
-		System.out.println("darUser");
+	public void initUser(){
+		user = new User();
+		userDao = UserDAO.darInstancia();
+	}
+	
+	public String obtainUser(){
         FacesContext context = FacesContext.getCurrentInstance();
         long idUser = new Long(context.getExternalContext().getRequestParameterMap().get("iduser"));
-       	User u = userDao.darUser(idUser);
-       	System.out.println(u);
+       	User u = userDao.obtainUser(idUser);
+       	System.out.println("[UserBean.obtainUser]  "+ u);
        	if(u!=null){
         	setUser(u);
        	}
-       	
-        System.out.println(idUser);
         
         return null;
 	}
+
 	
-	public ArrayList<User> getUsers(){
-		ArrayList<User> users = userDao.darUsers();
-		return users;
+	public String updateUser(){
+		boolean result = userDao.updateUser(user);
+		if(result){
+			System.out.println("updating ok");
+		}
+		return null;
+	}
+	
+	public String deleteUser(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        long idUser = new Long(context.getExternalContext().getRequestParameterMap().get("iduser"));
+		boolean result = userDao.deleteUser(idUser);
+		
+		if(result){
+			System.out.println("updating ok");
+		}
+		return null;
+	}
+	
+	public String createUser(){
+		
+		boolean result = userDao.createUser(user);
+		
+		if(result){
+			System.out.println("creating ok");
+		}
+		return null;
+	}
+	
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsers(ArrayList<User> users) {
+		this.users = userDao.lookUpUsers();
+	}
+
+	/**
+	 * @return the users
+	 */
+	public ArrayList<User> getUsers() {
+		return userDao.lookUpUsers();
 	}
 
 	/**

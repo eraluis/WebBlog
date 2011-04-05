@@ -11,9 +11,9 @@
 <h:panelGrid columns="2" width="100%" >
 <h:outputLabel style="font-size:30px;font-weight:bold;" value="#{msg.title}" />
 <h:panelGroup class="right">
-	<h:outputLabel value="#{msg.wellcome}" rendered="#{sign.signed == 'false'}" />
-	<h:outputLabel  value="#{sign.name} | " rendered="#{sign.signed == 'true'}" />
-	<h:commandLink value="#{msg.signout}" action="#{sign.signout}" rendered="#{sign.signed == 'true'}"></h:commandLink>
+	<h:outputLabel value="#{msg.wellcome}" rendered="#{login.signed == 'false'}" />
+	<h:outputLabel  value="#{login.name} | " rendered="#{login.signed == 'true'}" />
+	<h:commandLink value="#{msg.signout}" action="#{login.signout}" rendered="#{login.signed == 'true'}"></h:commandLink>
 </h:panelGroup>
 </h:panelGrid>
 </h:form>

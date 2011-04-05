@@ -1,6 +1,5 @@
 package web;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -8,49 +7,69 @@ import javax.faces.bean.SessionScoped;
 
 import persistence.User;
 import persistence.UserDAO;
-import util.Functions;
 
-@ManagedBean (name="sign")
+@ManagedBean (name="login")
 @SessionScoped
-public class SignBean {
+public class LoginBean {
 	
 	private boolean signed;
+	private Long idSession;
 	private User user;
     private UserDAO userDao;
 	
-	public SignBean(){
+	public LoginBean(){
+		initLogin();
+	}
+    
+	public void initLogin(){
+		idSession = null;
+		signed = false;
 		user = new User();
 		userDao = UserDAO.darInstancia();
 	}
-    
+	
+	public String toString(){
+		String result = "";
+		if(user!=null){
+			result = "LoginBean: User: "+user.getLogin()+", idSession: "+idSession+" , signed: "+signed;
+		}else{
+			result = "LoginBean: signed: "+signed;
+		}
+		return result;
+	}
+	
 	public String signin(){
 		String retutnPage=null;
 		setSigned(false);
-		System.out.println(user.getLogin());
-        try {
-        	User u = userDao.signin(user.getLogin(),user.getPassword());
-        	if(u != null){
-        		setSigned(true);
-        		setUser(u);
-        		if(u.getRole()=="A"){
-        			retutnPage="admin";
-        		}else{
-        			retutnPage="admin";
-        		}
-        	}
-            
-            } catch (SQLException e) {
-            	Functions.crearMensaje("Error al tratar de conectaqrse a la BD");
-            	System.out.println("[UserBean()] SQLException"+e.getMessage());	
-			}
+		//System.out.println(user.getLogin());
+
+    	idSession = userDao.signin(user.getLogin(),user.getPassword());
+    	
+    	if(idSession != null){
+    		System.out.println("[LoginBean.signin()] Session created with id: " + idSession);
+    		setSigned(true);
+    		User u = userDao.obtainUser("login",user.getLogin());
+    		setUser(u);
+    		if(u.getRole()=="A"){
+    			retutnPage="admin";
+    		}else{
+    			retutnPage="admin";
+    		}
+    	}
                
 		return retutnPage;
 	}
 	
 	public String signout(){
-		user = new User();
-		setSigned(false);
-		System.out.println("signout someone!!!");
+		
+		if(isSigned()){
+			boolean sout = userDao.signout(getIdSession());
+			
+			if(sout){
+				initLogin();
+			}
+		}
+		
 		return "index";
 	}
 
@@ -66,6 +85,20 @@ public class SignBean {
 	 */
 	public void setSigned(boolean signed) {
 		this.signed = signed;
+	}
+
+	/**
+	 * @return the idSession
+	 */
+	public Long getIdSession() {
+		return idSession;
+	}
+
+	/**
+	 * @param idSession the idSession to set
+	 */
+	public void setIdSession(Long idSession) {
+		this.idSession = idSession;
 	}
 
 	/**
