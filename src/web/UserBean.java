@@ -18,8 +18,9 @@ public class UserBean {
 	private User user;
 	@SuppressWarnings("unused")
 	private ArrayList<User> users;
-    private UserDAO userDao;
+    private UserDAO userDAO;
 	
+    
 	public UserBean(){
 		initUser();
 		System.out.println("Inicio UserBean...");
@@ -27,13 +28,14 @@ public class UserBean {
 	
 	public void initUser(){
 		user = new User();
-		userDao = UserDAO.darInstancia();
+		userDAO = UserDAO.darInstancia();
+		//users = userDAO.lookUpUsers();
 	}
 	
 	public String obtainUser(){
         FacesContext context = FacesContext.getCurrentInstance();
         long idUser = new Long(context.getExternalContext().getRequestParameterMap().get("iduser"));
-       	User u = userDao.obtainUser(idUser);
+       	User u = userDAO.obtainUser(idUser);
        	System.out.println("[UserBean.obtainUser]  "+ u);
        	if(u!=null){
         	setUser(u);
@@ -42,11 +44,21 @@ public class UserBean {
         return null;
 	}
 
+	public String createUser(){
+		
+		boolean result = userDAO.createUser(user);
+		
+		if(result){
+			initUser();
+		}
+		return null;
+	}
 	
 	public String updateUser(){
-		boolean result = userDao.updateUser(user);
+		boolean result = userDAO.updateUser(user);
 		if(result){
-			System.out.println("updating ok");
+			System.out.println("update ok");
+			initUser();
 		}
 		return null;
 	}
@@ -54,20 +66,10 @@ public class UserBean {
 	public String deleteUser(){
         FacesContext context = FacesContext.getCurrentInstance();
         long idUser = new Long(context.getExternalContext().getRequestParameterMap().get("iduser"));
-		boolean result = userDao.deleteUser(idUser);
+		boolean result = userDAO.deleteUser(idUser);
 		
 		if(result){
-			System.out.println("updating ok");
-		}
-		return null;
-	}
-	
-	public String createUser(){
-		
-		boolean result = userDao.createUser(user);
-		
-		if(result){
-			System.out.println("creating ok");
+			System.out.println("delete ok");
 		}
 		return null;
 	}
@@ -76,14 +78,14 @@ public class UserBean {
 	 * @param users the users to set
 	 */
 	public void setUsers(ArrayList<User> users) {
-		this.users = userDao.lookUpUsers();
+		this.users = userDAO.lookUpUsers();
 	}
 
 	/**
 	 * @return the users
 	 */
 	public ArrayList<User> getUsers() {
-		return userDao.lookUpUsers();
+		return userDAO.lookUpUsers();
 	}
 
 	/**
@@ -101,17 +103,17 @@ public class UserBean {
 	}
 
 	/**
-	 * @return the userDao
+	 * @return the userDAO
 	 */
-	public UserDAO getUserDao() {
-		return userDao;
+	public UserDAO getUserDAO() {
+		return userDAO;
 	}
 
 	/**
-	 * @param userDao the userDao to set
+	 * @param userDAO the userDAO to set
 	 */
-	public void setUserDao(UserDAO userDao) {
-		this.userDao = userDao;
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
 	
@@ -228,16 +230,17 @@ public class UserBean {
 	}
 
 	/**
-	 * @return the city
+	 * @param city the city to set
 	 */
-	public long getCity() {
-		return user.getCity();
+	public void setCity(Long city) {
+		user.setCity(city);
 	}
 
 	/**
-	 * @param city the city to set
+	 * @return the city
 	 */
-	public void setCity(long city) {
-		user.setCity(city);
+	public Long getCity() {
+		return user.getCity();
 	}
+
 }

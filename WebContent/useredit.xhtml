@@ -5,39 +5,74 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
 	>
 <body>
 <div>
 <h:form>
-	<h:panelGrid columns="2" border="3"> 
-	<h:outputLabel value="Id" ></h:outputLabel>
-	<h:inputText value="#{user.id}" disabled="true"></h:inputText>
-	<h:outputLabel value="Name"></h:outputLabel>
-	<h:inputText value="#{user.name}"></h:inputText>
-	<h:outputLabel value="Login"></h:outputLabel>
-	<h:inputText value="#{user.login}"></h:inputText>
-	<h:outputLabel value="Password"></h:outputLabel>
-	<h:inputText value="#{user.password}"></h:inputText>
-	<h:outputLabel value="Role"></h:outputLabel>
-	<h:inputText value="#{user.role}"></h:inputText>
-	<h:outputLabel value="Birthday"></h:outputLabel>
-	<h:inputText value="#{user.birthday}">
-		<f:converter converterId="javax.faces.DateTime" />
-	</h:inputText>
-	<h:outputLabel value="Conutry"></h:outputLabel>
-	<h:inputText value="#{user.country}"></h:inputText>
-	<h:outputLabel value="Department"></h:outputLabel>
-	<h:inputText value="#{user.department}"></h:inputText>
-	<h:outputLabel value="City"></h:outputLabel>
-	<h:inputText value="#{user.city}"></h:inputText>	
-	</h:panelGrid>	
-		<br />
+	<h:panelGrid width="autho">
+    <p:panel  header="Single User"  >
+        <h:panelGrid columns="3">  
+        
+            <h:outputLabel for="id" value="Id:" />  
+            <p:inputText id="id" value="#{user.id}" required="true" label="Id" disabled="true">  
+            </p:inputText>  
+            <p:message for="id" />  
+              
+            <h:outputLabel for="name" value="Name: *" />  
+            <p:inputText id="name" value="#{user.name}" required="true" label="Name"/>  
+            <p:message for="name" />  
+               
+            <h:outputLabel for="login" value="Login: *" />  
+            <p:inputText id="login" value="#{user.login}" required="true" label="Login"/>  
+            <p:message for="login" /> 
+                          
+            <h:outputLabel for="password" value="Password: *" />  
+            <p:inputText id="password" value="#{user.password}" required="true" label="Password"/>  
+            <p:message for="password" /> 
+            
+            <h:outputLabel for="birthday" value="Birthday: *" />     
+            <p:calendar id="birthday" value="#{user.birthday}" required="true" label="Birthday"
+            navigator="true" display="inline" yearRange="-81:-0" defaultDate="0y" /> 
+            <p:message for="birthday" />
+                
+            <h:outputLabel for="role" value="Role: *" />  
+            <h:selectOneMenu id="role" value="#{user.role}" required="true" label="Role">
+	            <f:selectItem itemValue="A" itemLabel="Admin" />
+	            <f:selectItem itemValue="U" itemLabel="User" />
+            </h:selectOneMenu>
+            <p:message for="role" /> 
+            
+            <h:outputLabel for="selectCountry" value="Country" />
+			<h:selectOneMenu style="width:100%" id="selectCountry" value="#{user.country}" valueChangeListener="#{location.countryChanged}">
+			<f:selectItem itemValue="" itemLabel="Select one..." />
+			<f:selectItems value="#{location.arrayCountries}" />
+			<f:ajax event="valueChange"  render="selectDepartment" ></f:ajax>
+			</h:selectOneMenu> 
+			<p:message for="selectCountry" />
+			
+			<h:outputLabel for="selectDepartment" value="Department"/>
+			<h:selectOneMenu style="width:100%" id="selectDepartment" value="#{user.department}" valueChangeListener="#{location.departmentChanged}">
+			<f:selectItem itemValue="" itemLabel="Select one..." />
+			<f:selectItems id="department" value="#{location.arrayDepartments}" />
+			<f:ajax event="valueChange" render="selectCity"></f:ajax>
+			</h:selectOneMenu> 
+			<p:message for="selectDepartment" />
+            
+			<h:outputLabel for="selectCity" value="City"/>
+			<h:selectOneMenu style="width:100%" id="selectCity" value="#{user.city}" >
+			<f:selectItem itemValue="" itemLabel="Select one..." />
+			<f:selectItems id="city" value="#{location.arrayCities}" />
+			</h:selectOneMenu> 
+			<p:message for="selectCity" />
+        </h:panelGrid>  
+    </p:panel> 
 	<h:panelGroup>
-	<h:commandButton value="Cancel" action="#{user.initUser}"/>
-	<h:commandButton value="Create"  rendered="#{user.id == '0'}" action="#{user.createUser}"/>
-	<h:commandButton value="Update"  rendered="#{user.id != '0'}" action="#{user.updateUser}"/>
+		<p:commandButton value="Cancel" ajax="false" action="#{user.initUser}"/>
+	    <p:commandButton value="Create" ajax="false"  rendered="#{user.id == '0'}" action="#{user.createUser}"/>
+		<p:commandButton value="Update" ajax="false"  rendered="#{user.id != '0'}" action="#{user.updateUser}" />
 	</h:panelGroup>
-
+	</h:panelGrid>
 </h:form>
 </div>
 </body>

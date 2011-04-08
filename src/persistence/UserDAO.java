@@ -25,12 +25,12 @@ public class UserDAO {
         return instancia;
     }
 
-    public UserDAO(){
+    private UserDAO(){
         try {
         Context c = new InitialContext();
         ds = (DataSource) c.lookup("java:comp/env/jdbc/blog");
         } catch (NamingException e) {
-            System.out.println("[UserDAO()] NamingException aqui..."+e.getMessage());
+            System.out.println("[UserDAO()] NamingException..."+e.getMessage());
             Functions.crearMensaje("Error al intentar conectarse al a base de datos");
         }
     }
@@ -222,7 +222,7 @@ public class UserDAO {
         	Functions.crearMensajerError(e);
 		}
         return u;
-}
+    }
     
     
     public ArrayList<User> lookUpUsers(){
@@ -258,12 +258,48 @@ public class UserDAO {
             cnt.close();
 
 		} catch (SQLException e) {
-        	System.out.println("[UserDAO.darUsers()] SQLException: "+e.getMessage());	
+        	System.out.println("[UserDAO.lookUpUsers()] SQLException: "+e.getMessage());	
         	Functions.crearMensajerError(e);
 		}
         
         return users;
     }
+  
+    public boolean createUser(User u){
+    	
+    	boolean result=true;
+        Connection cnt;
+        
+		try {
+			cnt = ds.getConnection();
+	        String query = "INSERT INTO user VALUES (NULL,'" +
+	        	
+		        u.getPassword()+"','"+
+		        u.getName()+"','"+
+		        u.getLogin()+"','"+
+		        new java.sql.Date(u.getBirthday().getTime())+"','"+
+		        u.getRole()+"',"+
+		        u.getCountry()+","+
+		        u.getDepartment()+","+
+		        u.getCity()+")";
+	        
+	        System.out.println("[UserDAO.createUser()] query: "+query);	
+	        
+            PreparedStatement statement = cnt.prepareStatement( query );
+            statement.executeUpdate();
+            
+	        statement.close( );
+            cnt.close();
+
+		} catch (SQLException e) {
+			result=false;
+        	System.out.println("[UserDAO.createUser()] SQLException: "+e.getMessage());	
+        	Functions.crearMensajerError(e);
+		}
+        
+        return result;
+    }
+    
     
     public boolean updateUser(User u){
     	
@@ -300,41 +336,6 @@ public class UserDAO {
         return result;
     }
     
-    public boolean createUser(User u){
-    	
-    	boolean result=true;
-        Connection cnt;
-        
-		try {
-			cnt = ds.getConnection();
-	        String query = "INSERT INTO user VALUES (NULL,'" +
-	        	
-		        u.getPassword()+"','"+
-		        u.getName()+"','"+
-		        u.getLogin()+"','"+
-		        new java.sql.Date(u.getBirthday().getTime())+"','"+
-		        u.getRole()+"',"+
-		        u.getCountry()+","+
-		        u.getDepartment()+","+
-		        u.getCity()+")";
-	        
-	        System.out.println("[UserDAO.createUser()] query: "+query);	
-	        
-            PreparedStatement statement = cnt.prepareStatement( query );
-            statement.executeUpdate();
-            
-	        statement.close( );
-            cnt.close();
-
-		} catch (SQLException e) {
-			result=false;
-        	System.out.println("[UserDAO.createUser()] SQLException: "+e.getMessage());	
-        	Functions.crearMensajerError(e);
-		}
-        
-        return result;
-    }
-    
     public boolean deleteUser(long id){
     	
     	boolean result=true;
@@ -345,13 +346,13 @@ public class UserDAO {
 	        String query;
 			
 	        query = "DELETE FROM usersession WHERE user_id=" + id ;
-	        System.out.println(query);
-	        PreparedStatement statement = cnt.prepareStatement( query );
+	        System.out.println("[UserDAO.deleteUser] query1: " +query);
+	        PreparedStatement statement = cnt.prepareStatement(query );
             statement.executeUpdate( );
 
             query = "DELETE FROM user WHERE id=" + id ;
             System.out.println(query);
-            statement = cnt.prepareStatement( query );
+	        System.out.println("[UserDAO.deleteUser] query2: " +query);
             statement.executeUpdate( );
             
 	        statement.close( );

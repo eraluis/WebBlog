@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,9 +11,9 @@
 <body>
 <div>
 <h:form>
-    <p:dataTable id="usertable" var="row" value="#{user.users}">  
+    <p:dataTable id="blogtable" var="row" value="#{blog.blogs}">  
         <f:facet name="header">  
-            Users
+            Blogs
         </f:facet>
 		<p:column>  
 		     <f:facet name="header">  
@@ -41,7 +42,7 @@
 		 <p:column>  
 		     <f:facet name="header">  
 		         <h:outputText value="Role" />  
-		     </f:facet>  
+		     </f:facet>
 		     <h:outputText value="#{row.role}" />  
 		 </p:column>
 		 <p:column>  
@@ -89,4 +90,3 @@
 </div>
 </body>
 </html>
-

@@ -19,7 +19,6 @@ public class User {
     private long city;
 
     public User(){
-
     }
 
     public User(long pId, String pPassword, String pName, String pLogin, Date pBirthday,
